@@ -1,0 +1,3 @@
+/*
+  This page will be used to show recipe results after searching for them
+*/

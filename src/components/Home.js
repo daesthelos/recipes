@@ -1,5 +1,10 @@
 import { Container, GridList, GridListTile } from "@material-ui/core"
 import { makeStyles } from '@material-ui/core/styles'
+import { recipes } from '../data/images'
+
+/* 
+  This page should be used to display a list of (recent?) recipes that may interest guests
+*/
 
 var useStyles = makeStyles((theme) => ({
   main: {
@@ -7,20 +12,15 @@ var useStyles = makeStyles((theme) => ({
   },
 }));
 
-const images = [
-  { src: 'https://i.redd.it/fnbv6mq03g861.jpg', title: 'Taco Bell Chalupa and Truffles', cols: 2 },
-  { src: 'https://i.redd.it/fnbv6mq03g861.jpg', title: 'Taco Bell Chalupa and Truffles', cols: 1 }
-];
-
 export default function Home() {
   const classes = useStyles()
 
   return (
     <Container className={classes.main}>
       <GridList cellHeight={160} cols={3}>
-        {images.map(image =>
-          <GridListTile cols={image.cols}>
-            <img src={image.src} alt={image.title} />
+        {recipes.map(recipe =>
+          <GridListTile cols={1}>
+            <img src={recipe.thumbnail} alt={recipe.name} />
           </GridListTile>
         )}
       </GridList>
