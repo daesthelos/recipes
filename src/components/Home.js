@@ -1,5 +1,7 @@
-import { Container, GridList, GridListTile } from "@material-ui/core"
+import { Container, GridList, GridListTile, GridListTileBar, IconButton } from "@material-ui/core"
 import { makeStyles } from '@material-ui/core/styles'
+import { Favorite } from "@material-ui/icons";
+import { Link } from "react-router-dom";
 import { recipes } from '../data/images'
 
 /* 
@@ -10,6 +12,9 @@ var useStyles = makeStyles((theme) => ({
   main: {
     paddingTop: '96px',
   },
+  icon: {
+    color: 'rgba(255, 255, 255, 0.54)',
+  }
 }));
 
 export default function Home() {
@@ -20,7 +25,19 @@ export default function Home() {
       <GridList cellHeight={160} cols={3}>
         {recipes.map(recipe =>
           <GridListTile cols={1}>
-            <img src={recipe.thumbnail} alt={recipe.name} />
+            <Link to={`/recipe/${recipe.name}`}>
+              {/* Anchor seems to break the sizing, so the image needs to be reset to max height/width */}
+              <img style={{ height: '100%', width: '100%', objectFit: 'cover' }} src={recipe.thumbnail} alt={recipe.name} />
+            </Link>
+            <GridListTileBar
+              title={recipe.name}
+              subtitle={'Author: Subtext goes here'}
+              actionIcon={
+                <IconButton aria-label={'Favorite'} className={classes.icon}>
+                  <Favorite />
+                </IconButton>
+              }
+            />
           </GridListTile>
         )}
       </GridList>
