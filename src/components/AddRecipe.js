@@ -3,21 +3,37 @@
  */
 
 import { Input, InputLabel, Button, Container, TextField } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
+import { AddCircle } from '@material-ui/icons'
 
-const ImageUpload = (props) => (
-  <Container>
-    <h1>Image upload Element</h1>
-  </Container>
-)
+const useStyles = makeStyles(theme => ({
+  thumbnailSelector: {
+    border: '1px solid grey',
+    borderRadius: '15px',
+  },
+}))
+
+const ImageUpload = ({ onImageSelected }) => {
+  const classes = useStyles()
+
+  return (
+    <Container className={classes.thumbnailSelector}>
+      <h1>Image upload Element. You can't actually upload images since they're too powerful :( </h1>
+      <InputLabel htmlFor="thumbnailInput">
+        <AddCircle color="primary" />
+      </InputLabel>
+      <Input style={{ visibility: 'hidden' }} id="thumbnailInput" type="file" onChange={(event) => onImageSelected(event)} />
+    </Container>
+  )
+}
 
 export default function AddRecipe() {
   return (
     <Container>
       <h1>You are on the Add page! Thank you for adding a new recipe!</h1>
       <form>
+        <ImageUpload onImageSelected={(event) => { console.log("You selected a file!") }} />
         <TextField required id="name" label="Recipe Name" />
-        <InputLabel id="thumbnailLabel" htmlFor="thumbnailInput">Select Thumbnail: </InputLabel>
-        <Input id="thumbnailInput" type="file" aria-describedby="thumbnailLabel" />
         <Button variant="contained" color="primary">Submit</Button>
       </form>
     </Container>
